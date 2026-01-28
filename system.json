@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "url": "https://github.com/SebsokK/mutant-chronicles-3e",
   "manifest": "https://raw.githubusercontent.com/SebsokK/mutant-chronicles-3e/main/system.json",
-  "download": "https://github.com/SebsokK/mutant-chronicles-3e/releases/download/Release/mutant-chronicles-3e.zip"
+  "download": "https://github.com/SebsokK/mutant-chronicles-3e/releases/download/Release/mutant-chronicles-3e.zip",
   "authors": [{ "name": "SokK & ChatGPT" }],
   "compatibility": { "minimum": "13", "verified": "13" },
   "esmodules": ["mutant.mjs"],
