@@ -1,0 +1,81 @@
+/* Style global de la fiche */
+.mutant-chronicles-3e {
+    background-image: url("/systems/mutant-chronicles-3e/assets/MCBG.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    color: ff6600;
+}
+
+/* La grille d'attributs */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    padding: 20px;
+}
+
+/* Chaque bloc d'attribut */
+.stat-block {
+    background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+    border: 1px solid #444;
+    border-left: 4px solid #ff6600; /* Une barre orange style indus */
+    padding: 10px;
+    text-align: center;
+    transition: border-color 0.3s;
+}
+
+.stat-block:hover {
+    border-color: #ff6600;
+}
+
+.stat-label {
+    display: block;
+    font-family: "Orbitron", sans-serif; /* Si tu as la police, sinon Courier */
+    font-size: 0.7rem;
+    color: #ff6600;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.stat-value input {
+    background: transparent !important;
+    color: white !important;
+    border: none !important;
+    font-size: 1.5rem !important;
+    width: 100%;
+}
+
+/* ============================= */
+/* OVERRIDE FOND PARCHEMIN FOUNDRY */
+/* ============================= */
+
+/* Fond réel de la fenêtre Foundry (le beige) */
+.app.window-app.mutant-chronicles-3e .window-content,
+.mutant-chronicles-3e.sheet .window-content {
+    background: url("/systems/mutant-chronicles-3e/assets/MCBG.jpg")
+                center / cover no-repeat fixed !important;
+}
+
+/* Le <form> ne doit pas repeindre par-dessus */
+.mutant-chronicles-3e.sheet form {
+    background: rgba(10, 10, 10, 0.85) !important;
+}
+
+.mc-npc-skill-roll:hover {
+  text-decoration: underline;
+  filter: brightness(1.15);
+}
+
+.mc-skill-disabled {
+  opacity: 0.4;
+}
+
+.mc-die.mc-selected {
+  outline: 2px solid #ff6600;
+  border-radius: 4px;
+  padding: 0 3px;
+}

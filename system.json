@@ -1,0 +1,14 @@
+{
+  "id": "mutant-chronicles-3e",
+  "title": "Mutant Chronicles 3e (Minimal)",
+  "version": "0.0.1",
+  "authors": [{ "name": "Arthur" }],
+  "compatibility": { "minimum": "13", "verified": "13" },
+  "esmodules": ["mutant.mjs"],
+  "styles": ["mutant.css"],
+  "template": "template.json",
+  "documentTypes": {
+    "Actor": ["character", "npc"],
+    "Item": ["quality", "weapon", "armor", "talent", "spell", "vehicle"]
+  }
+}

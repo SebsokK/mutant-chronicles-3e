@@ -1,0 +1,244 @@
+<form class="{{cssClass}}" autocomplete="off" style="background:#1a1a1a;color:white;padding:12px;">
+
+  <!-- Header: Image (wide) + Name + small stats -->
+  <header style="display:grid; grid-template-columns: 500px 1fr; gap:14px; align-items:start; border-bottom:2px solid #ff6600; padding-bottom:12px; margin-bottom:12px;">
+    <div style="border:1px solid #ff6600; background:#111; padding:6px;">
+      <img src="{{item.img}}" data-edit="img"
+           style="width:100%; height:180px; object-fit:cover; display:block; background:#000;"/>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      <div>
+        <div style="font-size:11px; color:#aaa; margin-bottom:4px;">Name</div>
+        <input name="name" type="text" value="{{item.name}}"
+               style="width:100%; background:#111; color:white; border:1px solid #333; padding:10px; font-size:22px;"/>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+        <div>
+          <div style="font-size:10px; color:#888; margin-bottom:4px;">Restriction</div>
+          <input name="system.restriction" type="number" value="{{system.restriction}}"
+                 style="width:100%; background:#111; color:white; border:1px solid #333; padding:8px; text-align:center;"/>
+        </div>
+        <div>
+          <div style="font-size:10px; color:#888; margin-bottom:4px;">Cost</div>
+          <input name="system.cost" type="number" value="{{system.cost}}"
+                 style="width:100%; background:#111; color:white; border:1px solid #333; padding:8px; text-align:center;"/>
+        </div>
+        <div>
+          <div style="font-size:10px; color:#888; margin-bottom:4px;">Maintenance</div>
+          <input name="system.maintenance" type="number" value="{{system.maintenance}}"
+                 style="width:100%; background:#111; color:white; border:1px solid #333; padding:8px; text-align:center;"/>
+        </div>
+        <div>
+          <div style="font-size:10px; color:#888; margin-bottom:4px;">Reliability</div>
+          <input name="system.reliability" type="number" value="{{system.reliability}}"
+                 style="width:100%; background:#111; color:white; border:1px solid #333; padding:8px; text-align:center;"/>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Description -->
+  <section style="border:1px solid #333; background:#111; padding:10px; margin-bottom:12px;">
+    <div style="font-size:11px; color:#aaa; margin-bottom:6px;">Description</div>
+    <textarea name="system.description"
+              style="width:100%; min-height:110px; background:#0f0f0f; color:white; border:1px solid #333; padding:10px; resize:vertical; font-size:13px; line-height:1.35;"
+              placeholder="Vehicle description…">{{system.description}}</textarea>
+  </section>
+
+  <!-- Crew + Stats -->
+  <section style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;">
+
+    <!-- Crew -->
+    <div style="border:1px solid #333; background:#111; padding:10px;">
+      <div style="font-size:11px; color:#aaa; margin-bottom:8px; display:flex; justify-content:space-between;">
+        <b>CREW</b>
+        <span style="color:#666;">(drop pilot)</span>
+      </div>
+
+      <div class="mc-pilot-dropzone" style="padding:10px; border:1px dashed #444; border-radius:8px; background:#0f0f0f; margin-bottom:10px;">
+        <div style="font-size:10px; color:#888; margin-bottom:4px;">PILOT</div>
+        <div style="font-weight:900; color:#ff6600;">
+          {{#if system.crew.pilotName}}{{system.crew.pilotName}}{{else}}Drop an Actor here{{/if}}
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+        <div>
+          <div style="font-size:10px; color:#888; margin-bottom:4px;">Passengers</div>
+          <input name="system.crew.passengers" type="number" value="{{system.crew.passengers}}"
+                 style="width:100%; background:#111; color:white; border:1px solid #333; padding:8px; text-align:center;"/>
+        </div>
+        <div>
+          <div style="font-size:10px; color:#888; margin-bottom:4px;">Encumbrance</div>
+          <input name="system.crew.encumbrance" type="number" value="{{system.crew.encumbrance}}"
+                 style="width:100%; background:#111; color:white; border:1px solid #333; padding:8px; text-align:center;"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicle stats -->
+    <div style="border:1px solid #333; background:#111; padding:10px;">
+      <div style="font-size:11px; color:#aaa; margin-bottom:8px;"><b>STATS</b></div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+        <div>
+          <div style="font-size:10px; color:#888; margin-bottom:4px;">Cruising Speed (kph)</div>
+          <input name="system.cruising_speed" type="text" value="{{system.cruising_speed}}"
+                 style="width:100%; background:#111; color:white; border:1px solid #333; padding:8px; text-align:center;"/>
+        </div>
+        <div>
+          <div style="font-size:10px; color:#888; margin-bottom:4px;">Combat Manoeuvrability</div>
+          <input name="system.combat_manoeuvrability" type="number" value="{{system.combat_manoeuvrability}}"
+                 style="width:100%; background:#111; color:white; border:1px solid #333; padding:8px; text-align:center;"/>
+        </div>
+      </div>
+
+      <div style="margin-top:12px; display:flex; gap:10px; align-items:end;">
+        <div style="flex:1;">
+          <div style="font-size:10px; color:#888; margin-bottom:4px;">Impact Damage</div>
+          <input name="system.impact_damage" type="text" value="{{system.impact_damage}}"
+                 style="width:100%; background:#111; color:white; border:1px solid #333; padding:8px; text-align:center;"
+                 placeholder="e.g. 2+DSY"/>
+        </div>
+        <button type="button" class="mc-impact-roll"
+                style="background:#ff6600;color:black;border:none;padding:9px 12px;border-radius:6px;cursor:pointer;font-weight:900;">
+          IMPACT!
+        </button>
+      </div>
+      <div style="font-size:11px; color:#666; margin-top:6px;">Impact format: <b>X+DSY</b> (e.g. 2+DSY, 1+2DSY)</div>
+    </div>
+
+  </section>
+
+  <!-- Qualities -->
+  <section style="border:1px solid #333; background:#111; padding:10px; margin-bottom:12px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+      <div style="font-size:11px; color:#aaa;"><b>QUALITIES</b> (drop Quality items here)</div>
+      <button type="button" class="mc-clear-qualities"
+              style="background:#222;color:#ff6600;border:1px solid #333;padding:6px 10px;border-radius:6px;cursor:pointer;font-weight:700;">
+        Clear
+      </button>
+    </div>
+
+    <div class="mc-quality-dropzone"
+         style="min-height:44px; padding:8px; border:1px dashed #444; border-radius:8px;">
+      {{#if vehicleQualities.length}}
+        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+          {{#each vehicleQualities as |q|}}
+            <a class="mc-quality-pill" data-uuid="{{q.uuid}}"
+               style="display:inline-block; padding:2px 8px; border:1px solid #ff6600; border-radius:999px; background:#111; color:#ff6600; font-weight:800; font-size:11px; text-decoration:none; cursor:pointer;">
+              {{q.name}}
+            </a>
+          {{/each}}
+        </div>
+      {{else}}
+        <div style="font-size:12px; color:#666;">Drop a Quality item here.</div>
+      {{/if}}
+    </div>
+  </section>
+
+  <!-- Locations table -->
+  <section style="border:1px solid #333; background:#111; padding:10px; margin-bottom:12px;">
+    <div style="font-size:11px; color:#aaa; margin-bottom:8px;"><b>LOCATIONS</b></div>
+
+    <div style="display:grid; grid-template-columns: 1.2fr 0.6fr 0.8fr 0.8fr 0.9fr; gap:8px; font-size:11px; color:#888; margin-bottom:6px;">
+      <div>Location</div><div>Soak</div><div>Surface Max</div><div>System Max</div><div>Structural Max</div>
+    </div>
+
+    <!-- Hull -->
+    <div style="display:grid; grid-template-columns: 1.2fr 0.6fr 0.8fr 0.8fr 0.9fr; gap:8px; align-items:center; margin-bottom:6px;">
+      <div style="font-weight:900; color:#ff6600;">HULL</div>
+      <input name="system.locations.hull.soak" type="number" value="{{system.locations.hull.soak}}"
+             style="width:100%; background:#111; color:white; border:1px solid #333; padding:6px; text-align:center;"/>
+      <input name="system.locations.hull.surfaceMax" type="number" value="{{system.locations.hull.surfaceMax}}"
+             style="width:100%; background:#111; color:white; border:1px solid #333; padding:6px; text-align:center;"/>
+      <input name="system.locations.hull.systemMax" type="number" value="{{system.locations.hull.systemMax}}"
+             style="width:100%; background:#111; color:white; border:1px solid #333; padding:6px; text-align:center;"/>
+      <input name="system.locations.hull.structuralMax" type="number" value="{{system.locations.hull.structuralMax}}"
+             style="width:100%; background:#111; color:white; border:1px solid #333; padding:6px; text-align:center;"/>
+    </div>
+
+    <!-- Motive -->
+    <div style="display:grid; grid-template-columns: 1.2fr 0.6fr 0.8fr 0.8fr 0.9fr; gap:8px; align-items:center;">
+      <div style="font-weight:900; color:#ff6600;">MOTIVE SYSTEM</div>
+      <input name="system.locations.motive.soak" type="number" value="{{system.locations.motive.soak}}"
+             style="width:100%; background:#111; color:white; border:1px solid #333; padding:6px; text-align:center;"/>
+      <input name="system.locations.motive.surfaceMax" type="number" value="{{system.locations.motive.surfaceMax}}"
+             style="width:100%; background:#111; color:white; border:1px solid #333; padding:6px; text-align:center;"/>
+      <input name="system.locations.motive.systemMax" type="number" value="{{system.locations.motive.systemMax}}"
+             style="width:100%; background:#111; color:white; border:1px solid #333; padding:6px; text-align:center;"/>
+      <input name="system.locations.motive.structuralMax" type="number" value="{{system.locations.motive.structuralMax}}"
+             style="width:100%; background:#111; color:white; border:1px solid #333; padding:6px; text-align:center;"/>
+    </div>
+  </section>
+
+  <!-- Trackers -->
+  <section style="border:1px solid #333; background:#111; padding:10px; margin-bottom:12px;">
+    <div style="font-size:11px; color:#aaa; margin-bottom:10px;"><b>DAMAGE TRACKERS</b> (click boxes)</div>
+
+    {{#each locationsView as |loc locKey|}}
+      <div style="margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid #222;">
+        <div style="font-weight:900; color:#ff6600; margin-bottom:8px;">{{loc.label}}</div>
+
+        <div style="display:grid; grid-template-columns: 1fr; gap:8px;">
+          <!-- Surface -->
+          <div>
+            <div style="font-size:11px; color:#888; margin-bottom:4px;">Surface Damage (Cur: {{loc.surface.cur}} / Max: {{loc.surface.max}})</div>
+            <div style="display:flex; flex-wrap:wrap; gap:6px;">
+              {{#each loc.surface.boxes as |b|}}
+                <div class="mc-veh-dmg-box"
+                     data-path="system.locations.{{locKey}}.surfaceCur"
+                     data-max-path="system.locations.{{locKey}}.surfaceMax"
+                     data-index="{{b.index}}"
+                     style="width:16px;height:16px;border:1px solid #666; background:{{#if b.checked}}#ff6600{{else}}transparent{{/if}}; cursor:pointer;">
+                </div>
+              {{/each}}
+            </div>
+          </div>
+
+          <!-- System -->
+          <div>
+            <div style="font-size:11px; color:#888; margin-bottom:4px;">System Damage (Cur: {{loc.system.cur}} / Max: {{loc.system.max}})</div>
+            <div style="display:flex; flex-wrap:wrap; gap:6px;">
+              {{#each loc.system.boxes as |b|}}
+                <div class="mc-veh-dmg-box"
+                     data-path="system.locations.{{locKey}}.systemCur"
+                     data-max-path="system.locations.{{locKey}}.systemMax"
+                     data-index="{{b.index}}"
+                     style="width:16px;height:16px;border:1px solid #666; background:{{#if b.checked}}#00ffcc{{else}}transparent{{/if}}; cursor:pointer;">
+                </div>
+              {{/each}}
+            </div>
+          </div>
+
+          <!-- Structural -->
+          <div>
+            <div style="font-size:11px; color:#888; margin-bottom:4px;">Structural Damage (Cur: {{loc.structural.cur}} / Max: {{loc.structural.max}})</div>
+            <div style="display:flex; flex-wrap:wrap; gap:6px;">
+              {{#each loc.structural.boxes as |b|}}
+                <div class="mc-veh-dmg-box"
+                     data-path="system.locations.{{locKey}}.structuralCur"
+                     data-max-path="system.locations.{{locKey}}.structuralMax"
+                     data-index="{{b.index}}"
+                     style="width:16px;height:16px;border:1px solid #666; background:{{#if b.checked}}#66ff66{{else}}transparent{{/if}}; cursor:pointer;">
+                </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+
+  </section>
+
+  <!-- Notes -->
+  <section style="border:1px solid #333; background:#111; padding:10px;">
+    <div style="font-size:11px; color:#aaa; margin-bottom:6px;"><b>NOTES</b></div>
+    <textarea name="system.notes"
+              style="width:100%; min-height:120px; background:#0f0f0f; color:white; border:1px solid #333; padding:10px; resize:vertical; font-size:13px; line-height:1.35;"
+              placeholder="Notes…">{{system.notes}}</textarea>
+  </section>
+
+</form>

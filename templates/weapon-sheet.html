@@ -1,0 +1,138 @@
+<form class="{{cssClass}}" autocomplete="off" style="background:#1a1a1a;color:white;padding:12px;">
+
+  <!-- Header: Image (wide) + Name -->
+  <header style="display:grid; grid-template-columns: 500px 1fr; gap:14px; align-items:start; border-bottom:2px solid #ff6600; padding-bottom:12px; margin-bottom:12px;">
+  <div style="border:1px solid #ff6600; background:#111; padding:6px;">
+    <img src="{{item.img}}" data-edit="img"
+         style="
+           width:100%;
+           height:180px;
+           object-fit:cover;
+           display:block;
+           background:#000;
+         "/>
+  </div>
+
+
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      <div>
+        <div style="font-size:11px; color:#aaa; margin-bottom:4px;">Name</div>
+        <input name="name" type="text" value="{{item.name}}"
+               style="width:100%; background:#111; color:white; border:1px solid #333; padding:10px; font-size:22px;"/>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+        <div>
+          <div style="font-size:11px; color:#aaa; margin-bottom:4px;">Restriction</div>
+          <input name="system.restriction" type="number" value="{{system.restriction}}"
+                 style="width:100%; background:#111; color:white; border:1px solid #333; padding:8px; font-size:16px; text-align:center;"/>
+        </div>
+
+        <div>
+          <div style="font-size:11px; color:#aaa; margin-bottom:4px;">Cost</div>
+          <input name="system.cost" type="number" value="{{system.cost}}"
+                 style="width:100%; background:#111; color:white; border:1px solid #333; padding:8px; font-size:16px; text-align:center;"/>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Description -->
+  <section style="border:1px solid #333; background:#111; padding:10px; margin-bottom:12px;">
+    <div style="font-size:11px; color:#aaa; margin-bottom:6px;">Description</div>
+    <textarea name="system.description"
+              style="width:100%; min-height:140px; background:#0f0f0f; color:white; border:1px solid #333; padding:10px; resize:vertical; font-size:13px; line-height:1.35;"
+              placeholder="Write the weapon description here…">{{system.description}}</textarea>
+  </section>
+
+  <!-- Stats Table -->
+  <section style="border:1px solid #333; background:#111; padding:10px; margin-bottom:12px;">
+    <div style="font-size:11px; color:#aaa; margin-bottom:8px;">Weapon Stats</div>
+
+    <div style="display:grid; grid-template-columns: 1fr 1fr 1.2fr 0.7fr 1fr 0.8fr; gap:8px; align-items:end;">
+      <!-- Range -->
+      <div>
+        <div style="font-size:10px; color:#888; margin-bottom:4px;">Range</div>
+        <select name="system.stats.range" style="width:100%; background:#111; color:white; border:1px solid #333; padding:6px;">
+          {{selectOptions rangeOptions selected=system.stats.range}}
+        </select>
+      </div>
+
+      <!-- Damage -->
+      <div>
+        <div style="font-size:10px; color:#888; margin-bottom:4px;">Damage</div>
+        <input name="system.stats.damage" type="text" value="{{system.stats.damage}}"
+               style="width:100%; background:#111; color:white; border:1px solid #333; padding:6px; text-align:center;"
+               placeholder="e.g. 1+DSY"/>
+      </div>
+
+      <!-- Mode -->
+      <div>
+        <div style="font-size:10px; color:#888; margin-bottom:4px;">Mode</div>
+        <select name="system.stats.mode" style="width:100%; background:#111; color:white; border:1px solid #333; padding:6px;">
+          {{selectOptions modeOptions selected=system.stats.mode}}
+        </select>
+      </div>
+
+      <!-- Enc -->
+      <div>
+        <div style="font-size:10px; color:#888; margin-bottom:4px;">Enc</div>
+        <input name="system.stats.enc" type="text" value="{{system.stats.enc}}"
+               style="width:100%; background:#111; color:white; border:1px solid #333; padding:6px; text-align:center;"/>
+      </div>
+
+      <!-- Size -->
+      <div>
+        <div style="font-size:10px; color:#888; margin-bottom:4px;">Size</div>
+        <select name="system.stats.size" style="width:100%; background:#111; color:white; border:1px solid #333; padding:6px;">
+          {{selectOptions sizeOptions selected=system.stats.size}}
+        </select>
+      </div>
+
+      <!-- Reliability -->
+      <div>
+        <div style="font-size:10px; color:#888; margin-bottom:4px;">Reliability</div>
+        <input name="system.stats.reliability" type="number" value="{{system.stats.reliability}}"
+               style="width:100%; background:#111; color:white; border:1px solid #333; padding:6px; text-align:center;"/>
+      </div>
+    </div>
+
+    <div style="margin-top:10px; display:flex; gap:10px; align-items:center;">
+      <button type="button" class="mc-roll-damage"
+              style="background:#ff6600;color:black;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;font-weight:800;">
+        Roll Damage
+      </button>
+      <div style="font-size:11px; color:#666;">
+        Damage format: <b>X+DSY</b> (e.g. 1+DSY, 2+DSY, 0+2DSY)
+      </div>
+    </div>
+  </section>
+
+  <!-- Qualities (drop zone) -->
+  <section style="border:1px solid #333; background:#111; padding:10px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+      <div style="font-size:11px; color:#aaa;">Qualities (drop Quality items here)</div>
+      <button type="button" class="mc-clear-qualities"
+              style="background:#222;color:#ff6600;border:1px solid #333;padding:6px 10px;border-radius:6px;cursor:pointer;font-weight:700;">
+        Clear
+      </button>
+    </div>
+
+    <div class="mc-quality-dropzone"
+         style="min-height:44px; padding:8px; border:1px dashed #444; border-radius:8px;">
+      {{#if weaponQualities.length}}
+        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+          {{#each weaponQualities as |q|}}
+            <a class="mc-quality-pill" data-uuid="{{q.uuid}}"
+               style="display:inline-block; padding:2px 8px; border:1px solid #ff6600; border-radius:999px; background:#111; color:#ff6600; font-weight:800; font-size:11px; text-decoration:none; cursor:pointer;">
+              {{q.name}}
+            </a>
+          {{/each}}
+        </div>
+      {{else}}
+        <div style="font-size:12px; color:#666;">Drop a Quality item here.</div>
+      {{/if}}
+    </div>
+  </section>
+
+</form>

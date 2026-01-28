@@ -1,0 +1,46 @@
+<form class="{{cssClass}}" autocomplete="off" style="background:#1a1a1a; color:white; padding:15px;">
+  <div style="display:grid; grid-template-columns: 220px 1fr; gap:14px; align-items:start;">
+
+    <!-- Left: Image -->
+    <div style="border:1px solid #ff6600; background:#111; padding:6px;">
+      <img src="{{item.img}}" data-edit="img"
+           style="width:100%; height:220px; object-fit:cover; display:block; background:#000;" />
+    </div>
+
+    <!-- Right: Fields -->
+    <div style="border:1px solid #444; background:#111; padding:12px;">
+
+      <div style="color:#ff6600; font-weight:900; text-transform:uppercase; border-bottom:1px solid #333; padding-bottom:6px; margin-bottom:10px;">
+        Talent
+      </div>
+
+      <div style="display:grid; grid-template-columns: 120px 1fr; gap:10px; align-items:center; margin-bottom:10px;">
+        <div style="font-size:11px; color:#aaa; text-transform:uppercase;">Name</div>
+        <input name="name" type="text" value="{{item.name}}"
+               style="width:100%; background:#0f0f0f; color:white; border:1px solid #333; padding:8px; font-size:14px;" />
+      </div>
+
+      <div style="display:grid; grid-template-columns: 120px 1fr; gap:10px; align-items:center; margin-bottom:10px;">
+        <div style="font-size:11px; color:#aaa; text-transform:uppercase;">Talent Tree</div>
+        <select name="system.talentTree"
+                style="width:100%; background:#0f0f0f; color:white; border:1px solid #333; padding:8px;">
+          {{#each skillOptions as |s|}}
+            <option value="{{s}}" {{#if (eq ../system.talentTree s)}}selected{{/if}}>{{s}}</option>
+          {{/each}}
+        </select>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 120px 1fr; gap:10px; align-items:center; margin-bottom:10px;">
+        <div style="font-size:11px; color:#aaa; text-transform:uppercase;">Prerequisite</div>
+        <input name="system.prerequisite" type="text" value="{{system.prerequisite}}"
+               placeholder="e.g. Close Combat 2, Talent X..."
+               style="width:100%; background:#0f0f0f; color:white; border:1px solid #333; padding:8px;" />
+      </div>
+
+      <div style="font-size:11px; color:#aaa; text-transform:uppercase; margin-bottom:6px;">Description</div>
+      <textarea name="system.description"
+                style="width:100%; min-height:280px; background:#0f0f0f; color:white; border:1px solid #333; padding:10px; resize:vertical; font-size:13px; line-height:1.35;">{{system.description}}</textarea>
+
+    </div>
+  </div>
+</form>

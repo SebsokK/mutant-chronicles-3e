@@ -1,0 +1,213 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+  <!-- HEADER -->
+  <div style="display:grid; grid-template-columns: 180px 1fr 260px; gap:16px; align-items:start; padding:10px; border:1px solid #333; background:rgba(10,10,10,0.85);">
+    <!-- IMAGE -->
+    <div style="border:1px solid #444; background:#0b0b0b; padding:10px; text-align:center;">
+      <img src="{{actor.img}}" data-edit="img"
+           style="width:160px; height:220px; object-fit:cover; border:2px solid #ff6600; cursor:pointer;">
+    </div>
+
+    <!-- NAME + QUALITIES -->
+    <div>
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+        <input name="name" type="text" value="{{actor.name}}" placeholder="NPC Name"
+               style="width:100%; font-size:28px; font-weight:900; background:#0b0b0b; border:1px solid #333; color:#fff; padding:8px 10px;">
+      </div>
+
+      <div style="color:#ff6600; font-weight:900; text-transform:uppercase; margin-bottom:6px;">
+        Tags (Qualities)
+      </div>
+
+      <div class="mc-npc-traits-dropzone"
+           style="border:1px dashed #444; background:#0f0f0f; padding:10px; min-height:48px;">
+        {{#if traitQualities.length}}
+          {{#each traitQualities as |q|}}
+            <span class="mc-trait-pill" data-uuid="{{q.uuid}}"
+                  style="display:inline-block; padding:2px 8px; margin:2px; border:1px solid #ff6600; border-radius:999px; background:#111; color:#ff6600; font-weight:800; font-size:11px; cursor:pointer;">
+              {{q.name}}
+            </span>
+          {{/each}}
+        {{else}}
+          <div style="color:#777; font-size:12px;">Drop Quality items here.</div>
+        {{/if}}
+      </div>
+    </div>
+
+    <!-- GRADE -->
+    <div style="border:1px solid #444; background:#0b0b0b; padding:10px;">
+      <div style="color:#ff6600; font-weight:900; text-transform:uppercase; margin-bottom:6px;">Grade</div>
+      <select name="system.grade"
+              style="width:100%; background:#111; color:#fff; border:1px solid #333; padding:8px;">
+        {{#each gradeOptions as |g|}}
+          <option value="{{g}}" {{#if (eq ../system.grade g)}}selected{{/if}}>{{g}}</option>
+        {{/each}}
+      </select>
+
+      <div style="margin-top:12px; color:#ff6600; font-weight:900; text-transform:uppercase; margin-bottom:6px;">Faction</div>
+      <input name="system.faction" type="text" value="{{system.faction}}" placeholder="e.g. Capitol, Mishima..."
+             style="width:100%; background:#111; color:#fff; border:1px solid #333; padding:8px;">
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div style="margin-top:12px; display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+
+    <!-- ATTRIBUTES (PJ-like block) -->
+    <div style="border:1px solid #333; background:rgba(10,10,10,0.85); padding:10px;">
+      <div style="color:#ff6600; font-weight:900; text-transform:uppercase; margin-bottom:10px;">Attributes</div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap:8px;">
+        {{#each system.attributes as |a key|}}
+          <div style="border:1px solid #444; background:#0b0b0b; padding:8px;">
+            <div style="font-size:10px; color:#888; text-transform:uppercase;">{{key}}</div>
+            <input name="system.attributes.{{key}}.value" type="number" value="{{a.value}}"
+                   style="width:100%; margin-top:6px; font-weight:900; background:#111; color:#fff; border:1px solid #333; padding:6px; text-align:center;">
+          </div>
+        {{/each}}
+      </div>
+    </div>
+
+    <!-- SKILLS SIMPLIFIED -->
+    <div style="border:1px solid #333; background:rgba(10,10,10,0.85); padding:10px;">
+       <div style="color:#ff6600; font-weight:900; text-transform:uppercase; margin-bottom:10px;">
+         Fields of Expertise
+       </div>
+ 
+       <!-- Header -->
+       <div style="display:grid; grid-template-columns: 1fr 90px 90px; gap:8px; align-items:center; margin-bottom:6px;">
+         <div></div>
+         <div style="color:#888; font-size:10px; text-transform:uppercase; text-align:right;">Expertise</div>
+         <div style="color:#888; font-size:10px; text-transform:uppercase; text-align:right;">Focus</div>
+       </div>
+ 
+       <!-- Rows -->
+       <div style="display:flex; flex-direction:column; gap:6px;">
+         {{#each system.skills as |sk key|}}
+           <div style="display:grid; grid-template-columns: 1fr 90px 90px; gap:8px; align-items:center;">
+             <div class="mc-npc-skill-roll"
+                  data-skill="{{key}}"
+                  style="color:#ff6600; font-weight:900; text-transform:uppercase; font-size:12px; cursor:pointer; padding:6px 0;">
+               {{key}}
+             </div>
+ 
+             <input name="system.skills.{{key}}.expertise" type="number" value="{{sk.expertise}}"
+                    style="background:#111; color:#fff; border:1px solid #333; padding:6px; text-align:right; font-weight:900;">
+ 
+             <input name="system.skills.{{key}}.focus" type="number" value="{{sk.focus}}"
+                    style="background:#111; color:#fff; border:1px solid #333; padding:6px; text-align:right; font-weight:900;">
+           </div>
+         {{/each}}
+       </div>
+
+      <div style="margin-top:12px; display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+        <div>
+          <div style="color:#ff6600; font-weight:900; text-transform:uppercase; margin-bottom:6px;">Current Wounds</div>
+          <input name="system.wounds.current" type="number" value="{{system.wounds.current}}"
+                 style="width:100%; background:#111; color:#fff; border:1px solid #333; padding:8px; text-align:center; font-weight:900;">
+        </div>
+        <div>
+          <div style="color:#ff6600; font-weight:900; text-transform:uppercase; margin-bottom:6px;">Total Wounds</div>
+          <input name="system.wounds.total" type="number" value="{{system.wounds.total}}"
+                 style="width:100%; background:#111; color:#fff; border:1px solid #333; padding:8px; text-align:center; font-weight:900;">
+        </div>
+      </div>
+
+       <div style="margin-top:12px;">
+         <div style="color:#ff6600; font-weight:900; text-transform:uppercase; margin-bottom:6px;">Soak</div>
+         <input name="system.soak" type="text" value="{{system.soak}}" placeholder="e.g. 3 (armor), 2 (cover)..."
+                style="width:100%; background:#111; color:#fff; border:1px solid #333; padding:8px;">
+       </div>	  
+    </div>
+
+    <!-- ATTACKS -->
+    <div style="border:1px solid #333; background:rgba(10,10,10,0.85); padding:10px;">
+      <div style="color:#ff6600; font-weight:900; text-transform:uppercase; margin-bottom:10px;">Attacks</div>
+
+      <div class="mc-npc-attacks-dropzone"
+           style="border:1px dashed #444; background:#0f0f0f; padding:10px; margin-bottom:10px;">
+        <div style="color:#777; font-size:12px;">Drop WEAPON items here.</div>
+      </div>
+
+      {{#if npcWeapons.length}}
+        {{#each npcWeapons as |w|}}
+          <div style="border:1px solid #333; background:#111; padding:10px; margin-bottom:8px;">
+            <div style="display:flex; justify-content:space-between; gap:10px;">
+              <div style="flex:1;">
+                <div style="font-weight:900; color:#fff; font-size:14px;">{{w.name}}</div>
+                <div style="font-size:11px; color:#888; text-transform:uppercase; margin-top:2px;">
+                  Range: {{w.stats.range}} • Damage: {{w.stats.damage}}
+                </div>
+              </div>
+
+              <div style="display:flex; gap:8px; align-items:flex-start;">
+                <button type="button" class="mc-weapon-attack" data-weapon-id="{{w.id}}"
+                        style="background:#ff6600; color:#000; border:0; font-weight:900; padding:6px 10px; cursor:pointer;">
+                  ATTACK!
+                </button>
+                <a class="mc-item-edit" title="Edit" data-item-id="{{w.id}}"
+                   style="color:#ff6600; cursor:pointer;"><i class="fas fa-edit"></i></a>
+                <a class="mc-item-delete" title="Delete" data-item-id="{{w.id}}"
+                   style="color:#ff6600; cursor:pointer;"><i class="fas fa-trash"></i></a>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      {{else}}
+        <div style="border:1px solid #333; background:#0b0b0b; padding:10px; color:#777;">
+          No attacks yet.
+        </div>
+      {{/if}}
+    </div>
+
+    <!-- SPECIAL ABILITIES -->
+    <div style="border:1px solid #333; background:rgba(10,10,10,0.85); padding:10px;">
+      <div style="color:#ff6600; font-weight:900; text-transform:uppercase; margin-bottom:10px;">Special Abilities</div>
+
+      <div class="mc-npc-abilities-dropzone"
+           style="border:1px dashed #444; background:#0f0f0f; padding:10px; margin-bottom:10px;">
+        <div style="color:#777; font-size:12px;">Drop TALENT items here.</div>
+      </div>
+
+      {{#if npcTalents.length}}
+        {{#each npcTalents as |t|}}
+          <div style="border:1px solid #333; background:#111; padding:10px; margin-bottom:8px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
+              <div style="flex:1; text-align:left;">
+                <div style="font-weight:900; color:#fff; font-size:14px;">{{t.name}}</div>
+                <div style="font-size:11px; color:#888; text-transform:uppercase; margin-top:2px;">
+                  {{t.talentTree}}{{#if t.prerequisite}} • prereq: {{t.prerequisite}}{{/if}}
+                </div>
+                {{#if t.description}}
+                  <div style="margin-top:8px; font-size:12px; color:#ccc; white-space:pre-wrap; line-height:1.4;">
+                    {{t.description}}
+                  </div>
+                {{/if}}
+              </div>
+
+              <div style="display:flex; gap:8px;">
+                <a class="mc-item-chat" title="Send to Chat" data-item-id="{{t.id}}"
+                   style="color:#ff6600; cursor:pointer;"><i class="fas fa-comment-alt"></i></a>
+                <a class="mc-item-edit" title="Edit" data-item-id="{{t.id}}"
+                   style="color:#ff6600; cursor:pointer;"><i class="fas fa-edit"></i></a>
+                <a class="mc-item-delete" title="Delete" data-item-id="{{t.id}}"
+                   style="color:#ff6600; cursor:pointer;"><i class="fas fa-trash"></i></a>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      {{else}}
+        <div style="border:1px solid #333; background:#0b0b0b; padding:10px; color:#777;">
+          No abilities yet.
+        </div>
+      {{/if}}
+
+      <div style="margin-top:12px;">
+        <div style="color:#ff6600; font-weight:900; text-transform:uppercase; margin-bottom:6px;">Notes</div>
+        <textarea name="system.notes"
+                  style="width:100%; min-height:120px; background:#0b0b0b; color:#fff; border:1px solid #333; padding:10px; resize:vertical;">{{system.notes}}</textarea>
+      </div>
+    </div>
+
+  </div>
+</form>

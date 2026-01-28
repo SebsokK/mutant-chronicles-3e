@@ -1,0 +1,63 @@
+<form class="{{cssClass}}" autocomplete="off" style="background:#1a1a1a; color:white; padding:15px;">
+  <div style="display:grid; grid-template-columns: 240px 1fr; gap:14px; align-items:start;">
+
+    <!-- Left: Image -->
+    <div style="border:1px solid #ff6600; background:#111; padding:6px;">
+      <img src="{{item.img}}" data-edit="img"
+           style="width:100%; height:240px; object-fit:cover; display:block; background:#000;" />
+    </div>
+
+    <!-- Right: Top fields -->
+    <div style="border:1px solid #444; background:#111; padding:12px;">
+      <div style="color:#ff6600; font-weight:900; text-transform:uppercase; border-bottom:1px solid #333; padding-bottom:6px; margin-bottom:10px;">
+        Spell
+      </div>
+
+      <div style="display:grid; grid-template-columns: 120px 1fr; gap:10px; align-items:center; margin-bottom:10px;">
+        <div style="font-size:11px; color:#aaa; text-transform:uppercase;">Name</div>
+        <input name="name" type="text" value="{{item.name}}"
+               style="width:100%; background:#0f0f0f; color:white; border:1px solid #333; padding:8px; font-size:14px;" />
+      </div>
+
+      <div style="display:grid; grid-template-columns: 120px 1fr; gap:10px; align-items:center; margin-bottom:10px;">
+        <div style="font-size:11px; color:#aaa; text-transform:uppercase;">Difficulty</div>
+        <select name="system.difficulty"
+                style="width:100%; background:#0f0f0f; color:white; border:1px solid #333; padding:8px;">
+          {{#each difficultyOptions as |d|}}
+            <option value="{{d}}" {{#if (eq ../system.difficulty d)}}selected{{/if}}>{{d}}</option>
+          {{/each}}
+        </select>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 120px 1fr; gap:10px; align-items:center; margin-bottom:10px;">
+        <div style="font-size:11px; color:#aaa; text-transform:uppercase;">Target</div>
+        <input name="system.target" type="text" value="{{system.target}}"
+               placeholder="e.g. 1 target in LoS"
+               style="width:100%; background:#0f0f0f; color:white; border:1px solid #333; padding:8px;" />
+      </div>
+
+      <div style="display:grid; grid-template-columns: 120px 1fr; gap:10px; align-items:center; margin-bottom:10px;">
+        <div style="font-size:11px; color:#aaa; text-transform:uppercase;">Duration</div>
+        <input name="system.duration" type="text" value="{{system.duration}}"
+               placeholder="e.g. Instant / 1 scene"
+               style="width:100%; background:#0f0f0f; color:white; border:1px solid #333; padding:8px;" />
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Big text blocks -->
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-top:14px;">
+    <div style="border:1px solid #444; background:#111; padding:12px;">
+      <div style="font-size:11px; color:#aaa; text-transform:uppercase; margin-bottom:6px;">Base Effect</div>
+      <textarea name="system.baseEffect"
+                style="width:100%; min-height:260px; background:#0f0f0f; color:white; border:1px solid #333; padding:10px; resize:vertical; font-size:13px; line-height:1.35;">{{system.baseEffect}}</textarea>
+    </div>
+
+    <div style="border:1px solid #444; background:#111; padding:12px;">
+      <div style="font-size:11px; color:#aaa; text-transform:uppercase; margin-bottom:6px;">Momentum</div>
+      <textarea name="system.momentum"
+                style="width:100%; min-height:260px; background:#0f0f0f; color:white; border:1px solid #333; padding:10px; resize:vertical; font-size:13px; line-height:1.35;">{{system.momentum}}</textarea>
+    </div>
+  </div>
+</form>

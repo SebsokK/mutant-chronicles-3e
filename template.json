@@ -1,0 +1,243 @@
+{
+  "Actor": {
+    "types": ["character", "npc"],
+    "character": {
+      "attributes": {
+        "agility": { "value": 5 },
+        "awareness": { "value": 5 },
+        "coordination": { "value": 5 },
+        "intelligence": { "value": 5 },
+        "mental_strength": { "value": 5 },
+        "personality": { "value": 5 },
+        "physique": { "value": 5 },
+        "strength": { "value": 5 }
+      },
+      "skills": {
+        "acrobatics": { "expertise": 0, "focus": 0, "attribute": "agility", "isSignature": false, "isAdvanced": false },
+        "close_combat": { "expertise": 0, "focus": 0, "attribute": "agility", "isSignature": false, "isAdvanced": false },
+        "unarmed_combat": { "expertise": 0, "focus": 0, "attribute": "agility", "isSignature": false, "isAdvanced": true },
+        "stealth": { "expertise": 0, "focus": 0, "attribute": "agility", "isSignature": false, "isAdvanced": false },
+
+        "observation": { "expertise": 0, "focus": 0, "attribute": "awareness", "isSignature": false, "isAdvanced": false },
+        "insight": { "expertise": 0, "focus": 0, "attribute": "awareness", "isSignature": false, "isAdvanced": true },
+        "thievery": { "expertise": 0, "focus": 0, "attribute": "awareness", "isSignature": false, "isAdvanced": false },
+
+        "ranged_weapons": { "expertise": 0, "focus": 0, "attribute": "coordination", "isSignature": false, "isAdvanced": false },
+        "heavy_weapons": { "expertise": 0, "focus": 0, "attribute": "coordination", "isSignature": false, "isAdvanced": true },
+        "gunnery": { "expertise": 0, "focus": 0, "attribute": "coordination", "isSignature": false, "isAdvanced": true },
+        "pilot": { "expertise": 0, "focus": 0, "attribute": "coordination", "isSignature": false, "isAdvanced": false },
+        "space": { "expertise": 0, "focus": 0, "attribute": "coordination", "isSignature": false, "isAdvanced": true },
+
+        "education": { "expertise": 0, "focus": 0, "attribute": "intelligence", "isSignature": false, "isAdvanced": false },
+        "linguistics": { "expertise": 0, "focus": 0, "attribute": "intelligence", "isSignature": false, "isAdvanced": true },
+        "science": { "expertise": 0, "focus": 0, "attribute": "intelligence", "isSignature": false, "isAdvanced": true },
+        "mechanics": { "expertise": 0, "focus": 0, "attribute": "intelligence", "isSignature": false, "isAdvanced": false },
+        "survival": { "expertise": 0, "focus": 0, "attribute": "intelligence", "isSignature": false, "isAdvanced": false },
+        "vacuum": { "expertise": 0, "focus": 0, "attribute": "intelligence", "isSignature": false, "isAdvanced": true },
+        "treatment": { "expertise": 0, "focus": 0, "attribute": "intelligence", "isSignature": false, "isAdvanced": false },
+        "medicine": { "expertise": 0, "focus": 0, "attribute": "intelligence", "isSignature": false, "isAdvanced": true },
+        "psychotherapy": { "expertise": 0, "focus": 0, "attribute": "intelligence", "isSignature": false, "isAdvanced": true },
+
+        "willpower": { "expertise": 0, "focus": 0, "attribute": "mental_strength", "isSignature": false, "isAdvanced": false },
+        "mysticism": { "expertise": 0, "focus": 0, "attribute": "mental_strength", "isSignature": false, "isAdvanced": true },
+
+        "animal_handling": { "expertise": 0, "focus": 0, "attribute": "personality", "isSignature": false, "isAdvanced": false },
+        "lifestyle": { "expertise": 0, "focus": 0, "attribute": "personality", "isSignature": false, "isAdvanced": false },
+        "persuade": { "expertise": 0, "focus": 0, "attribute": "personality", "isSignature": false, "isAdvanced": false },
+        "command": { "expertise": 0, "focus": 0, "attribute": "personality", "isSignature": false, "isAdvanced": true },
+
+        "resistance": { "expertise": 0, "focus": 0, "attribute": "physique", "isSignature": false, "isAdvanced": false },
+        "athletics": { "expertise": 0, "focus": 0, "attribute": "strength", "isSignature": false, "isAdvanced": false }
+      },
+
+      "chronicle_points": { "value": 0, "max": 5 },
+      "damage_bonus": { "ranged": { "value": 0 }, "melee": { "value": 0 } },
+
+      "dread": {
+        "value": 0,
+        "trackers": {
+          "level0": [false],
+          "level1": [false, false],
+          "level2": [false, false, false],
+          "level3": [false, false, false, false],
+          "level4": [false, false, false, false, false]
+        }
+      },
+
+      "faction": "",
+      "xp": { "current": 0, "total": 0 },
+      "traits": [],
+      "notes": "",
+
+      "combat": {
+        "statusQuality": "",
+        "criticalInjuryQuality": "",
+        "wounds": {
+          "head": [],
+          "torso": [],
+          "rightArm": [],
+          "leftArm": [],
+          "rightLeg": [],
+          "leftLeg": []
+        },
+        "seriousWounds": [],
+        "criticalWounds": [],
+        "belongings": ""
+      }
+    }
+	,
+     "npc": {
+       "attributes": {
+         "agility": { "value": 5 },
+         "awareness": { "value": 5 },
+         "coordination": { "value": 5 },
+         "intelligence": { "value": 5 },
+         "mental_strength": { "value": 5 },
+         "personality": { "value": 5 },
+         "physique": { "value": 5 },
+         "strength": { "value": 5 }
+       },
+ 
+       "grade": "TROOPER",
+       "faction": "",
+ 
+       "skills": {
+         "combat":    { "expertise": 0, "focus": 0 },
+         "fortitude": { "expertise": 0, "focus": 0 },
+         "movement":  { "expertise": 0, "focus": 0 },
+         "senses":    { "expertise": 0, "focus": 0 },
+         "social":    { "expertise": 0, "focus": 0 },
+         "technical": { "expertise": 0, "focus": 0 }
+       },
+ 
+       "wounds": { "current": 0, "total": 1 },
+	   "soak": "",
+ 
+       "damage_bonus": { "ranged": { "value": 0 }, "melee": { "value": 0 } },
+ 
+       "traits": [],
+       "notes": ""
+    }
+	
+  },
+
+  "Item": {
+    "types": ["quality", "weapon", "armor", "talent", "spell", "vehicle"],
+
+    "quality": {
+      "img": "icons/svg/book.svg",
+      "system": {
+        "description": ""
+      }
+    },
+
+    "weapon": {
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "restriction": 0,
+        "cost": 0,
+        "description": "",
+        "stats": {
+          "range": "Close",
+          "damage": "1+DSY",
+          "mode": "Semi-Automatic",
+          "enc": "0",
+          "size": "-",
+          "reliability": 0
+        },
+        "qualities": [],
+        "equipped": false,
+        "reloadUsed": 0
+      }
+    },
+
+    "armor": {
+      "img": "icons/svg/shield.svg",
+      "system": {
+        "faction": "",
+        "soak": {
+          "head": 0,
+          "torso": 0,
+          "arms": 0,
+          "legs": 0
+        },
+        "armsCoverage": "both",
+        "encumbrance": "",
+        "restriction": "",
+        "cost": "",
+        "description": "",
+        "equipped": false
+      }
+    },
+	
+	 "talent": {
+      "img": "icons/svg/book.svg",
+      "system": {
+        "talentTree": "acrobatics",
+        "prerequisite": "",
+        "description": ""
+      }
+    },
+
+    "spell": {
+      "img": "icons/svg/eye.svg",
+      "system": {
+        "difficulty": "D1",
+        "target": "",
+        "duration": "",
+        "baseEffect": "",
+        "momentum": ""
+      }
+    }
+        ,
+    "vehicle": {
+      "img": "icons/svg/rocket.svg",
+      "system": {
+        "restriction": 0,
+        "cost": 0,
+        "maintenance": 0,
+        "reliability": 0,
+
+        "description": "",
+
+        "cruising_speed": "",
+        "combat_manoeuvrability": 0,
+
+        "qualities": [],
+
+        "crew": {
+          "pilotUuid": "",
+          "pilotName": "",
+          "passengers": 0,
+          "encumbrance": 0
+        },
+
+        "locations": {
+          "hull": {
+            "soak": 0,
+            "surfaceMax": 0,
+            "systemMax": 0,
+            "structuralMax": 0,
+            "surfaceCur": 0,
+            "systemCur": 0,
+            "structuralCur": 0
+          },
+          "motive": {
+            "soak": 0,
+            "surfaceMax": 0,
+            "systemMax": 0,
+            "structuralMax": 0,
+            "surfaceCur": 0,
+            "systemCur": 0,
+            "structuralCur": 0
+          }
+        },
+
+        "impact_damage": "1+DSY",
+        "notes": ""
+      }
+    }
+
+
+  }
+}
