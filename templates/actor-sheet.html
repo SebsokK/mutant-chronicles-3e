@@ -169,10 +169,10 @@
           {{#if traitQualities.length}}
             <div style="display:flex; flex-wrap:wrap; gap:6px;">
               {{#each traitQualities as |q|}}
-                <a class="mc-trait-pill" data-uuid="{{q.uuid}}"
-                   style="display:inline-block; padding:2px 8px; border:1px solid #ff6600; border-radius:999px; background:#111; color:#ff6600; font-weight:800; font-size:11px; text-decoration:none; cursor:pointer;">
-                  {{q.name}}
-                </a>
+                <span class="mc-trait-pill" data-uuid="{{q.uuid}}">
+                  <a class="mc-trait-open" data-uuid="{{q.uuid}}">{{q.name}}</a>
+                  <a class="mc-trait-delete" data-uuid="{{q.uuid}}" title="Remove">✕</a>
+                </span>
               {{/each}}
             </div>
           {{else}}
@@ -672,7 +672,7 @@
   </div>
 
   <div class="mc-talents-dropzone"
-       style="border:1px dashed #444; background:#0f0f0f; padding:10px; margin-bottom:14px;"
+       style="border:1px dashed #444; background:#0f0f0f; padding:8px; margin-bottom:10px;"
        title="Drop TALENT here">
     <div style="color:#777; font-size:12px; margin-bottom:8px;">
       Drag & drop Talents here.
@@ -681,7 +681,7 @@
     {{#if talents.length}}
       {{#each talents as |t|}}
         <div class="mc-item-row"
-              style="border:1px solid #333; background:#111; padding:10px; margin-bottom:8px;"
+              style="border:1px solid #333; background:#111; padding:6px 8px; margin-bottom:6px;"
               data-item-id="{{t.id}}">
            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
              <!-- TEXT -->
@@ -693,7 +693,7 @@
                  {{t.talentTree}}{{#if t.prerequisite}} • prereq: {{t.prerequisite}}{{/if}}
                </div>
                {{#if t.description}}
-                 <div style="margin-top:8px; font-size:12px; color:#ccc; white-space:pre-wrap; line-height:1.4;">
+                 <div style="margin-top:4px; font-size:12px; color:#ccc; white-space:pre-line; line-height:1.25;">
                    {{t.description}}
                  </div>
                {{/if}}
@@ -724,7 +724,7 @@
   </div>
 
   <div class="mc-spells-dropzone"
-       style="border:1px dashed #444; background:#0f0f0f; padding:10px;"
+       style="border:1px dashed #444; background:#0f0f0f; padding:8px;"
        title="Drop SPELL here">
     <div style="color:#777; font-size:12px; margin-bottom:8px;">
       Drag & drop Spells here.
@@ -733,7 +733,7 @@
     {{#if spells.length}}
       {{#each spells as |s|}}
         <div class="mc-item-row"
-              style="border:1px solid #333; background:#111; padding:10px; margin-bottom:8px;"
+              style="border:1px solid #333; background:#111; padding:6px 8px; margin-bottom:6px;"
               data-item-id="{{s.id}}">
            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
              <!-- TEXT -->
@@ -745,12 +745,12 @@
                  {{s.difficulty}}{{#if s.target}} • target: {{s.target}}{{/if}}{{#if s.duration}} • duration: {{s.duration}}{{/if}}
                </div>
                {{#if s.baseEffect}}
-                 <div style="margin-top:8px; font-size:12px; color:#ccc; white-space:pre-wrap; line-height:1.4;">
+                 <div style="margin-top:4px; font-size:12px; color:#ccc; white-space:pre-line; line-height:1.25;">
                    <b style="color:#ff6600;">Base:</b> {{s.baseEffect}}
                  </div>
                {{/if}}
                {{#if s.momentum}}
-                 <div style="margin-top:6px; font-size:12px; color:#ccc; white-space:pre-wrap; line-height:1.4;">
+                 <div style="margin-top:3px; font-size:12px; color:#ccc; white-space:pre-line; line-height:1.25;">
                    <b style="color:#ff6600;">Momentum:</b> {{s.momentum}}
                  </div>
                {{/if}}

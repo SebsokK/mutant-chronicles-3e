@@ -743,10 +743,26 @@ static get defaultOptions() {
         }
       }
 
-      // 4. Traits (Quality items stored on the actor as UUIDs)
-      const traitUuids = Array.isArray(system.traits) ? system.traits : [];
+            // 4. Traits (Quality items stored on the actor as UUIDs)
+      let traitUuids = system.traits;
+
+      // Backward compat: if it's a single string, convert to [string]
+      if (typeof traitUuids === "string" && traitUuids.trim().length) {
+        traitUuids = [traitUuids.trim()];
+      }
+
+      // Ensure array
+      traitUuids = Array.isArray(traitUuids) ? traitUuids.filter(Boolean) : [];
+
+      // Optional: write back normalized array so it stays clean
+      if (!Array.isArray(system.traits) || system.traits.length !== traitUuids.length) {
+        this.actor.update({ "system.traits": traitUuids }).catch(() => {});
+      }
+
       const traitDocs = await Promise.all(traitUuids.map(u => fromUuid(u).catch(() => null)));
-      context.traitQualities = traitDocs.filter(Boolean).map(d => ({ uuid: d.uuid, name: d.name }));
+      context.traitQualities = traitDocs
+        .filter(Boolean)
+        .map(d => ({ uuid: d.uuid, name: d.name, img: d.img }));
 
       // -------------------------------
       //  COMBAT & GEAR DATA
@@ -906,15 +922,26 @@ static get defaultOptions() {
 
 		context.talents = this.actor.items
          .filter(i => i.type === "talent")
-         .map(i => ({
-           id: i.id,
-           uuid: i.uuid,
-           name: i.name,
-           img: i.img,
-           talentTree: i.system?.talentTree ?? "",
-           prerequisite: i.system?.prerequisite ?? "",
-           description: i.system?.description ?? ""
-         }));
+         .map(i => {
+           const rawDesc = (i.system?.description ?? "").toString();
+           // Remove leading indentation per-line + trim overall (fixes "big tab" look)
+           const cleanDesc = rawDesc
+             .replace(/\r/g, "")
+             .split("\n")
+             .map(l => l.trim())
+             .join("\n")
+             .trim();
+
+           return {
+             id: i.id,
+             uuid: i.uuid,
+             name: i.name,
+             img: i.img,
+             talentTree: i.system?.talentTree ?? "",
+             prerequisite: i.system?.prerequisite ?? "",
+             description: cleanDesc
+           };
+         });
 
 		context.spells = this.actor.items
          .filter(i => i.type === "spell")
@@ -1000,11 +1027,27 @@ html.find(".sheet-tabs .item").on("click", (ev) => {
         });
       }
 
-      html.find(".mc-trait-pill").on("click", async (ev) => {
+      // Open trait sheet
+      html.find(".mc-trait-open").on("click", async (ev) => {
         ev.preventDefault();
+        ev.stopPropagation();
         const uuid = ev.currentTarget.dataset.uuid;
-        const doc = await fromUuid(uuid);
+        const doc = await fromUuid(uuid).catch(() => null);
         doc?.sheet?.render(true);
+      });
+
+      // Delete trait (remove UUID from system.traits)
+      html.find(".mc-trait-delete").on("click", async (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        const uuid = ev.currentTarget.dataset.uuid;
+        if (!uuid) return;
+
+        const current = Array.isArray(this.actor.system.traits) ? this.actor.system.traits : [];
+        const next = current.filter(u => u !== uuid);
+
+        await this.actor.update({ "system.traits": next });
       });
 
       // Combat & Gear: wound boxes

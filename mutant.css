@@ -79,3 +79,44 @@
   border-radius: 4px;
   padding: 0 3px;
 }
+
+
+/* Traits (Actor sheet) */
+.mc-traits-dropzone > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.mc-trait-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border: 1px solid #ff6600;
+  border-radius: 999px;
+  background: #111;
+}
+
+.mc-trait-open {
+  color: #ff6600;
+  font-weight: 800;
+  font-size: 11px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.mc-trait-delete {
+  color: #ff6600;
+  font-weight: 900;
+  font-size: 11px;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.mc-trait-delete:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
