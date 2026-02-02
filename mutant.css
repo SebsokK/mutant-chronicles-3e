@@ -120,3 +120,8 @@
   opacity: 1;
   text-decoration: underline;
 }
+
+.mc-nem-box.is-checked {
+  background: #ff6600;
+  border-color: #ff6600;
+}

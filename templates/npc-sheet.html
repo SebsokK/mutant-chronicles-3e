@@ -117,7 +117,56 @@
          <div style="color:#ff6600; font-weight:900; text-transform:uppercase; margin-bottom:6px;">Soak</div>
          <input name="system.soak" type="text" value="{{system.soak}}" placeholder="e.g. 3 (armor), 2 (cover)..."
                 style="width:100%; background:#111; color:#fff; border:1px solid #333; padding:8px;">
-       </div>	  
+       </div>
+       
+      {{#if (eq system.grade "NEMESIS")}}
+      <div style="margin-top:12px; border-top:1px solid #333; padding-top:12px;">
+        <div style="color:#ff6600; font-weight:900; text-transform:uppercase; margin-bottom:10px;">Hit Locations (Nemesis)</div>
+
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          {{#each nemesisLocations as |loc|}}
+            <div style="border:1px solid #333; background:#0b0b0b; padding:8px;">
+              <div style="display:flex; justify-content:space-between; gap:10px; align-items:flex-start;">
+                <div style="min-width:110px; font-weight:900; color:#fff; text-transform:uppercase; font-size:12px;">
+                  {{loc.label}}
+                </div>
+
+                <div style="flex:1; display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                  <!-- SOAK (manual text) -->
+                  <div style="display:flex; gap:6px; align-items:center;">
+                    <div style="color:#888; font-size:10px; text-transform:uppercase;">Soak</div>
+                    <input name="{{loc.soakPath}}" type="text" value="{{loc.soak}}"
+                           style="width:90px; background:#111; color:#fff; border:1px solid #333; padding:6px; text-align:center;">
+                  </div>
+
+                  <!-- MAX boxes (manual or +/-) -->
+                  <div style="display:flex; gap:6px; align-items:center;">
+                    <div style="color:#888; font-size:10px; text-transform:uppercase;">Boxes</div>
+                    <button type="button" class="mc-nem-max-btn" data-op="dec" data-max-path="{{loc.maxPath}}"
+                            style="background:#111; color:#ff6600; border:1px solid #333; padding:4px 8px; font-weight:900; cursor:pointer;">-</button>
+                    <input name="{{loc.maxPath}}" type="number" min="0" max="30" value="{{loc.max}}"
+                           style="width:60px; background:#111; color:#fff; border:1px solid #333; padding:6px; text-align:center; font-weight:900;">
+                    <button type="button" class="mc-nem-max-btn" data-op="inc" data-max-path="{{loc.maxPath}}"
+                            style="background:#111; color:#ff6600; border:1px solid #333; padding:4px 8px; font-weight:900; cursor:pointer;">+</button>
+                  </div>
+
+                  <!-- BOXES -->
+                  <div class="mc-nem-boxes" style="display:flex; gap:4px; flex-wrap:wrap; align-items:center;">
+                    {{#each loc.boxes as |b|}}
+                      <span class="mc-nem-box {{#if b.checked}}is-checked{{/if}}"
+                            data-path="{{loc.boxesPath}}"
+                            data-index="{{b.index}}"
+                            title="Toggle"
+                            style="width:14px; height:14px; border:1px solid #444; display:inline-block; cursor:pointer;"></span>
+                    {{/each}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+      {{/if}}	  
     </div>
 
     <!-- ATTACKS -->

@@ -112,6 +112,16 @@
  
        "wounds": { "current": 0, "total": 1 },
 	   "soak": "",
+            "combat": {
+         "locations": {
+           "head":     { "soak": "", "max": 0, "boxes": [] },
+           "torso":    { "soak": "", "max": 0, "boxes": [] },
+           "rightArm": { "soak": "", "max": 0, "boxes": [] },
+           "leftArm":  { "soak": "", "max": 0, "boxes": [] },
+           "rightLeg": { "soak": "", "max": 0, "boxes": [] },
+           "leftLeg":  { "soak": "", "max": 0, "boxes": [] }
+         }
+       },
  
        "damage_bonus": { "ranged": { "value": 0 }, "melee": { "value": 0 } },
  

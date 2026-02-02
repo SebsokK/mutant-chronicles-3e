@@ -1267,8 +1267,34 @@ html.find(".sheet-tabs .item").on("click", (ev) => {
         const wpn = this.actor.items.get(weaponId);
         if (!wpn) return;
 
-        const range = String(wpn.system?.stats?.range ?? "").toUpperCase();
-        const isMelee = (range === "REACH");
+const rangeRaw = wpn.system?.stats?.range;
+const rangeOptions = ["Reach", "Close", "Medium", "Long"];
+
+// Your data can be either:
+// - index number (0..3)
+// - string label ("Reach", "Close", ...)
+// Normalize to a label for display, and compute melee strictly from Reach.
+let rangeLabel = "";
+let isMelee = false;
+
+if (typeof rangeRaw === "number") {
+  const idx = Number.isFinite(rangeRaw) ? rangeRaw : -1;
+  rangeLabel = rangeOptions[idx] ?? String(rangeRaw);
+  isMelee = (idx === 0); // 0 = Reach
+} else {
+  const s = String(rangeRaw ?? "").trim();
+  // If it's numeric-as-string ("0"), treat it like an index too
+  if (/^\d+$/.test(s)) {
+    const idx = Number(s);
+    rangeLabel = rangeOptions[idx] ?? s;
+    isMelee = (idx === 0);
+  } else {
+    rangeLabel = s;
+    isMelee = (s.toLowerCase() === "reach");
+  }
+}
+
+const range = rangeLabel;
 
         const bonus = Number(
           isMelee
@@ -1600,6 +1626,14 @@ await ChatMessage.create({
       return { base, dsyCount };
     }
 
+        // (3A) Normalize an array of booleans to a fixed length
+    _normalizeBoolArray(arr, len) {
+      const a = Array.isArray(arr) ? arr.slice(0, len) : [];
+      while (a.length < len) a.push(false);
+      return a;
+    }
+
+
      // -------------------------------
      //  NPC SKILL ROLL (2d20-style)
      //  TN = Attribute.value + Expertise
@@ -1700,6 +1734,46 @@ if (game.dice3d) {
           description: t.system?.description ?? ""
         }));
 
+              // (3B) NEMESIS HIT LOCATIONS (manual)
+      if (String(system.grade ?? "").toUpperCase() === "NEMESIS") {
+        system.combat ??= { locations: {} };
+        system.combat.locations ??= {};
+
+        const defs = [
+          { key: "head",     label: "Head" },
+          { key: "torso",    label: "Torso" },
+          { key: "rightArm", label: "Right Arm" },
+          { key: "leftArm",  label: "Left Arm" },
+          { key: "rightLeg", label: "Right Leg" },
+          { key: "leftLeg",  label: "Left Leg" }
+        ];
+
+        const clamp = (n, a, b) => Math.max(a, Math.min(b, Number(n ?? 0)));
+
+        context.nemesisLocations = defs.map(d => {
+          const basePath = `system.combat.locations.${d.key}`;
+          const loc = foundry.utils.getProperty(this.actor, basePath) ?? {};
+          const max = clamp(loc.max, 0, 30);
+
+          const boxes = this._normalizeBoolArray(loc.boxes, max)
+            .map((checked, idx) => ({ index: idx, checked: !!checked }));
+
+          return {
+            key: d.key,
+            label: d.label,
+            soak: String(loc.soak ?? ""),
+            max,
+            soakPath: `${basePath}.soak`,
+            maxPath: `${basePath}.max`,
+            boxesPath: `${basePath}.boxes`,
+            boxes
+          };
+        });
+      } else {
+        context.nemesisLocations = [];
+      }
+
+
       context.system = system;
       return context;
     }
@@ -1732,6 +1806,49 @@ if (game.dice3d) {
           await this.actor.update({ "system.traits": [...current, doc.uuid] });
         });
       }
+
+      // (3C) NEMESIS: toggle location boxes
+      html.find(".mc-nem-box").on("click", async (ev) => {
+        ev.preventDefault();
+
+        const el = ev.currentTarget;
+        const path = el.dataset.path;   // ...boxes
+        const idx = Number(el.dataset.index ?? -1);
+        if (!path || idx < 0) return;
+
+        // Determine desired length from sibling count
+        const siblings = html.find(`.mc-nem-box[data-path="${path}"]`);
+        const len = siblings.length;
+
+        const currentArr = foundry.utils.getProperty(this.actor, path);
+        const arr = this._normalizeBoolArray(currentArr, len);
+        arr[idx] = !arr[idx];
+
+        await this.actor.update({ [path]: arr });
+      });
+
+      // (3C) NEMESIS: +/- change max boxes
+      html.find(".mc-nem-max-btn").on("click", async (ev) => {
+        ev.preventDefault();
+        const op = ev.currentTarget.dataset.op; // inc|dec
+        const maxPath = ev.currentTarget.dataset.maxPath; // ...max
+        if (!maxPath) return;
+
+        const basePath = maxPath.replace(/\.max$/, "");
+        const boxesPath = `${basePath}.boxes`;
+
+        const curMax = Number(foundry.utils.getProperty(this.actor, maxPath) ?? 0);
+        let nextMax = curMax + (op === "inc" ? 1 : -1);
+        nextMax = Math.max(0, Math.min(30, nextMax));
+
+        const currentBoxes = foundry.utils.getProperty(this.actor, boxesPath);
+        const nextBoxes = this._normalizeBoolArray(currentBoxes, nextMax);
+
+        await this.actor.update({
+          [maxPath]: nextMax,
+          [boxesPath]: nextBoxes
+        });
+      });
 
       html.find(".mc-trait-pill").on("click", async (ev) => {
         ev.preventDefault();
@@ -1820,8 +1937,34 @@ if (game.dice3d) {
         const wpn = this.actor.items.get(weaponId);
         if (!wpn) return;
 
-        const range = String(wpn.system?.stats?.range ?? "").toUpperCase();
-        const isMelee = (range === "REACH");
+const rangeRaw = wpn.system?.stats?.range;
+const rangeOptions = ["Reach", "Close", "Medium", "Long"];
+
+// Your data can be either:
+// - index number (0..3)
+// - string label ("Reach", "Close", ...)
+// Normalize to a label for display, and compute melee strictly from Reach.
+let rangeLabel = "";
+let isMelee = false;
+
+if (typeof rangeRaw === "number") {
+  const idx = Number.isFinite(rangeRaw) ? rangeRaw : -1;
+  rangeLabel = rangeOptions[idx] ?? String(rangeRaw);
+  isMelee = (idx === 0); // 0 = Reach
+} else {
+  const s = String(rangeRaw ?? "").trim();
+  // If it's numeric-as-string ("0"), treat it like an index too
+  if (/^\d+$/.test(s)) {
+    const idx = Number(s);
+    rangeLabel = rangeOptions[idx] ?? s;
+    isMelee = (idx === 0);
+  } else {
+    rangeLabel = s;
+    isMelee = (s.toLowerCase() === "reach");
+  }
+}
+
+const range = rangeLabel;
 
         const bonus = Number(
           isMelee
@@ -1888,6 +2031,7 @@ const loc = _mcHitLocation(locValue);
           content: `
 <div style="background:#1a1a1a;color:white;padding:8px;border:1px solid #ff6600">
   <small>Range: ${range || "-"}. Bonus used: ${bonusLabel} = ${bonus} DSY</small>
+  <div style="font-size:10px; color:#666;">debug rangeRaw=${String(rangeRaw)} | rangeStr=${rangeStr} | isMelee=${isMelee}</div>
   <div style="
     font-size:16px;
     font-weight:900;
